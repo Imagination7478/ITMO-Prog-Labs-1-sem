@@ -1,6 +1,5 @@
 #include <stdio.h>
-//#include <conio.h>
-//Compiler version gcc 6.3.0
+#include <conio.h>
 
 struct shape
 {
@@ -14,6 +13,18 @@ enum LAMPS
 	DAY_LIGHT,
 	GALLOGENOVYE
 };
+
+union device
+{
+	int bit;
+	struct mp3
+	{
+		unsigned short play : 1;
+		unsigned short pause : 1;
+		unsigned short write : 1;
+	} mp3;
+} device;
+
 
 int main(void)
 {
@@ -29,40 +40,46 @@ int main(void)
 	{
 	case NAKALIVANYA:
 	{
-		printf("1");
+		printf("Number of element 1\n");
 		break;
 	}
 	case DAY_LIGHT:
 	{
-		printf("2");
+		printf("Number of element 2\n");
 		break;
 	}
 	case GALLOGENOVYE:
 	{
-		printf("3");
+		printf("Number of element 3\n");
 		break;
 	}
 	}
 
 	// Задание 2
 	struct shape rectangle;
-	printf("Input a: \n");
-	scanf("%d", &rectangle.a);
+	printf("Input a: ");
+	scanf_s("%d", &rectangle.a);
 
-	printf("Input b: \n");
-	scanf("%d", &rectangle.b);
+	printf("Input b: ");
+	scanf_s("%d", &rectangle.b);
 
 	int S = rectangle.a * rectangle.b;
 
-	printf("Rentangle's S = %d", S);
+	printf("Rentangle's S = %d\n", S);
 
 	// Задание 3
-	// Битовые поля http://www.c-cpp.ru/books/bitovye-polya
+	printf("Input number: ");
+	unsigned number;
+	scanf_s("%x", &number);
+
+	device.bit = number;
+
+	device.mp3.play ? printf("Play off\n") : printf("Play on\n");
+	device.mp3.pause ? printf("Pause off\n") : printf("Pause on\n");
+	device.mp3.write ? printf("Write off\n") : printf("Write on\n");
 
 
-
-
-
+	_getche();
 	return 0;
 }
 
