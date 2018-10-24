@@ -14,10 +14,10 @@ enum LAMPS
 	GALLOGENOVYE
 };
 
-union device
+union
 {
-	int bit;
-	struct mp3
+	unsigned short bit;
+	struct
 	{
 		unsigned short play : 1;
 		unsigned short pause : 1;
@@ -29,7 +29,6 @@ union device
 int main(void)
 {
 	// Вариант 18
-
 	// Задание 1
 	enum LAMPS lamp1,lamp2,lamp3;
 	lamp1 = NAKALIVANYA;
@@ -69,14 +68,11 @@ int main(void)
 
 	// Задание 3
 	printf("Input number: ");
-	unsigned number;
-	scanf_s("%x", &number);
+	scanf_s("%X", &device.bit);
 
-	device.bit = number;
-
-	device.mp3.play ? printf("Play off\n") : printf("Play on\n");
-	device.mp3.pause ? printf("Pause off\n") : printf("Pause on\n");
-	device.mp3.write ? printf("Write off\n") : printf("Write on\n");
+	device.mp3.play ? printf("Play on\n") : printf("Play off\n");
+	device.mp3.pause ? printf("Pause on\n") : printf("Pause off\n");
+	device.mp3.write ? printf("Write on\n") : printf("Write off\n");
 
 
 	_getche();
