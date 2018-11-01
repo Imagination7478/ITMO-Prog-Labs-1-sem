@@ -1,79 +1,82 @@
 #include <stdio.h>
+#include <string.h>
+#include <conio.h>
+#include <stdlib.h>
+#define _SIZE 100
 
-// Наибольший общий делитель
-int NOD(int var1, int var2)
+void arrOfN(int n, int ptrArr[], int size)
 {
-	int nod;
-	if (var1 > var2)
+	int delitel = 1;
+	int k = size;
+	while (k != 1)
 	{
-		nod = var2;
-		int result = var1 % var2;
-		int i = 0;
-		while(result != 0)
-		{
-			nod = result;
-			
-			if (i >= 1)
-			{
-				result = nod % result;
-			}
-			else
-			{
-				result = var2 % result;
-			}
-			i++;
-		}
+		delitel *= 10;
+		k--;
 	}
-	else
+
+	for(int i = 0, temp = n; i < size && temp != 0; i++)
 	{
-		nod = var1;
-		int result = var2 % var1;
-		int i = 0;
-		while(result != 0)
-		{
-			nod = result;
-			
-			if (i >= 1)
-			{
-				result = nod % result;
-			}
-			else
-			{
-				result = var1 % result;
-			}
-			i++;
-		}
+		ptrArr[i] = temp / delitel;
+		temp %= delitel;
+		delitel /= 10;
 	}
-	
-	return nod;
 }
 
-int arrOfN(int n)
+void deleteSpaces(char string[], int size)
 {
-	int temp = n;
-	int size = 0;
-	while (temp != 0)
+	for (int i = 0; i < size && string[i] != '\0'; i++)
 	{
-		temp = temp / 10;
-		size++;
-	}
-	*ptrArr = (int*)malloc(size, sizeof(int));
-	for(int i = 0, temp = n, int delitel = size * 10; i < size, temp != 0; i++)
-	{
-		temp 
-		ptrArr[i] = 
+		if (i == 0) {}
+		else
+		{
+			if (string[i] == ' ' && string[i - 1] == ' ')
+			{
+				for (int j = i; j < size - 1; j++)
+				{
+					if (j + 1 != size - 1)
+					{
+						string[j] = string[j + 1];
+					}
+					else {}
+				}
+				size--;
+				deleteSpaces(string, size);
+			}
+		}
 	}
 }
 
 int main()
 {
-	//printf("%d", NOD(15, 5));
 	// Вариант 18
+	// Задание 3
 	printf("Input n: ");
 	int n;
-	scanf("%d", &n);
-	arrOfN(n);
+	scanf_s("%d", &n);
+
+	int temp = n, size = 0;
+	while (temp != 0)
+	{
+		temp = temp / 10;
+		size++;
+	}
+	int *ptrArr = (int*)malloc(size * sizeof(int));
+	arrOfN(n, ptrArr, size);
+
+	for (int i = 0; i < size; i++)
+	{
+		printf("%d element of arr from N = %d\n", i + 1, ptrArr[i]);
+	}
+
+	free(ptrArr);
+
+	// Задание 5
+	printf("Input string: ");
+	char string[_SIZE] = "\0";
+
+	gets_s(string);
+	deleteSpaces(string, _SIZE);
 	
-	
+	_getche();
 	return 0;
 }
